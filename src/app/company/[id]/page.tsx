@@ -125,7 +125,7 @@ const Index = ({}) => {
         <h1>IPO Timeline</h1>
         <div className="flex flex-col md:grid md:grid-cols-6">
           {IPO?.timelineDetails.map((timeline) => (
-            <ProgessPointer timeline={timeline} />
+            <ProgessPointer key={timeline.title} timeline={timeline} />
           ))}
         </div>
       </section>
