@@ -1,35 +1,6 @@
-import { IPOStatus } from "./types"
+import { IPO } from "./types"
 
-export const IPOS: {
-  id: number
-  name: string
-  registeredName: string
-  description: string
-  logo: string
-  issueDateRange: {
-    from: string
-    to: string
-  }
-  issueSizeRangeInCrores: {
-    from: number
-    to: number
-  }
-  priceRange: {
-    from: number
-    to: number
-  }
-  minimumInvestmentInRupees: number
-  noOfShares: number
-  lotSize: number
-  listingDate: string
-  listingPrice: number
-  listingGainsInRupees: number
-  timelineDetails: {
-    title: string
-    date: string
-    status: keyof typeof IPOStatus
-  }[]
-}[] = [
+export const IPOS: IPO[] = [
   {
     id: 1,
     name: "Zomato",
@@ -320,20 +291,3 @@ export const IPOS: {
     ],
   },
 ]
-
-export const STATE_HANDLER: {
-  [key in IPOStatus]: {
-    svgBackgroundStyle?: string
-    lineBackgroundStyle?: string
-  }
-} = {
-  COMPLETED: {
-    lineBackgroundStyle: "bg-gray-800",
-    svgBackgroundStyle: "bg-green-500",
-  },
-
-  PENDING: {
-    lineBackgroundStyle: "bg-gray-200",
-    svgBackgroundStyle: "bg-gray-300",
-  },
-}

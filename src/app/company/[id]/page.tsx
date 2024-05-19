@@ -3,8 +3,8 @@
 import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
 import React from "react"
-import clsx from "clsx"
-import { IPOS, STATE_HANDLER } from "@/lib/constants"
+import { IPOS } from "@/lib/constants"
+import ProgessPointer from "@/ui/ProgressPointer"
 
 const Index = ({}) => {
   const { back, push } = useRouter()
@@ -18,6 +18,13 @@ const Index = ({}) => {
 
   return (
     <div className="m-4 md:m-10 space-y-8">
+      <div className="flex gap-2">
+        <p className="cursor-pointer" onClick={() => push("/company")}>
+          Home
+        </p>{" "}
+        &gt; <p> {IPO?.name}</p>
+      </div>
+
       <section className="space-y-4">
         <h1>IPO Details</h1>
         <div className="flex items-center  justify-between">
@@ -60,7 +67,7 @@ const Index = ({}) => {
 
       <section className="md:border space-y-4 p-4 rounded-xl">
         <h1>IPO Details</h1>
-        <div className="border grid p-4 rounded-xl gap-4 grid-cols-2 md:grid-cols-4">
+        <div className="border grid p-4 rounded-xl gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
           <div>
             <h2>Issue Size</h2>
             <p>
@@ -82,6 +89,11 @@ const Index = ({}) => {
           </div>
 
           <div>
+            <h2>Lot size</h2>
+            <p>{IPO?.lotSize}</p>
+          </div>
+
+          <div>
             <h2>Minimum Quantity</h2>
             <p>{IPO?.lotSize}</p>
           </div>
@@ -92,6 +104,20 @@ const Index = ({}) => {
               {IPO?.issueDateRange.from} - {IPO?.issueDateRange.to}
             </p>
           </div>
+
+          <div>
+            <h2>Listed on</h2>
+            <p>{IPO?.listingDate}</p>
+          </div>
+          <div>
+            <h2>Listed price</h2>
+            <p>₹{IPO?.listingPrice}</p>
+          </div>
+
+          <div>
+            <h2>Listing gains</h2>
+            <p>₹{IPO?.listingGainsInRupees}</p>
+          </div>
         </div>
       </section>
 
@@ -99,36 +125,7 @@ const Index = ({}) => {
         <h1>IPO Timeline</h1>
         <div className="flex flex-col md:grid md:grid-cols-6">
           {IPO?.timelineDetails.map((timeline) => (
-            <div key={timeline.title} className="flex gap-4 md:flex-col">
-              <div className="flex flex-col md:flex-row items-center">
-                <div
-                  className={clsx(
-                    "w-7 h-7 p-1 aspect-square rounded-full",
-                    STATE_HANDLER[timeline.status].svgBackgroundStyle
-                  )}
-                >
-                  {timeline.status === "COMPLETED" && (
-                    <Image
-                      src={"/tick.svg"}
-                      alt="calendar"
-                      width={28}
-                      height={28}
-                    />
-                  )}
-                </div>
-                <div
-                  className={clsx(
-                    "w-[2px] md:h-[2px] md:w-full grow",
-                    STATE_HANDLER[timeline?.status].lineBackgroundStyle
-                  )}
-                />
-              </div>
-
-              <div className="pb-4">
-                <h2>{timeline.title}</h2>
-                <p>{timeline.date}</p>
-              </div>
-            </div>
+            <ProgessPointer timeline={timeline} />
           ))}
         </div>
       </section>
