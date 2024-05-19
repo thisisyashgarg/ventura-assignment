@@ -1,7 +1,4 @@
-import { table } from "console"
 import Image from "next/image"
-import { list } from "postcss"
-import { title } from "process"
 
 const IPOS = [
   {

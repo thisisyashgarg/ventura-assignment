@@ -332,40 +332,48 @@ export default function Home() {
   const { push } = useRouter()
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Company / Issue Date </th>
-          <th scope="col">Issue Size</th>
-          <th scope="col">Price Range</th>
-          <th scope="col">Minimum Invest/Qty</th>
-        </tr>
-      </thead>
-      <tbody>
-        {IPOS.map((ipo) => (
-          <tr onClick={() => push(`/company/${ipo.id} `)} key={ipo.id}>
-            <td className="flex">
-              <Image src={ipo.logo} width={50} height={50} alt={""} />
-              <div>
-                <h2>{ipo.name}</h2>
-                <p>
-                  {ipo.issueDateRange.from} - {ipo.issueDateRange.to}
-                </p>
-              </div>
-            </td>
-            <td>{ipo.issueSizeRangeInCrores.to} crores</td>
-            <td>
-              {ipo.priceRange.from} - {ipo.priceRange.to}
-            </td>
-            <td>
-              <h2>{ipo.minimumInvestmentInRupees}</h2>
-              <p>
-                {ipo.noOfShares}/{ipo.lotSize}
-              </p>
-            </td>
+    <>
+      {/* For desktop */}
+      <table className="hidden md:block">
+        <thead>
+          <tr>
+            <th scope="col">Company / Issue Date </th>
+            <th scope="col">Issue Size</th>
+            <th scope="col">Price Range</th>
+            <th scope="col">Minimum Invest/Qty</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {IPOS.map((ipo) => (
+            <tr onClick={() => push(`/company/${ipo.id} `)} key={ipo.id}>
+              <td className="flex">
+                <Image src={ipo.logo} width={50} height={50} alt={""} />
+                <div>
+                  <h2>{ipo.name}</h2>
+                  <p>
+                    {ipo.issueDateRange.from} - {ipo.issueDateRange.to}
+                  </p>
+                </div>
+              </td>
+              <td>{ipo.issueSizeRangeInCrores.to} crores</td>
+              <td>
+                {ipo.priceRange.from} - {ipo.priceRange.to}
+              </td>
+              <td>
+                <h2>{ipo.minimumInvestmentInRupees}</h2>
+                <p>
+                  {ipo.noOfShares}/{ipo.lotSize}
+                </p>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* For mobile */}
+      <div className="h-screen md:hidden flex items-center justify-center">
+        Switch to desktop view to see the IPO Listings
+      </div>
+    </>
   )
 }
