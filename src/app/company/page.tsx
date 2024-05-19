@@ -1,14 +1,48 @@
-import { table } from "console"
-import Image from "next/image"
-import { list } from "postcss"
-import { title } from "process"
+"use client"
 
-const IPOS = [
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+
+export enum IPOStatus {
+  COMPLETED = "COMPLETED",
+  PENDING = "PENDING",
+}
+export const IPOS: {
+  id: number
+  name: string
+  registeredName: string
+  description: string
+  logo: string
+  issueDateRange: {
+    from: string
+    to: string
+  }
+  issueSizeRangeInCrores: {
+    from: number
+    to: number
+  }
+  priceRange: {
+    from: number
+    to: number
+  }
+  minimumInvestmentInRupees: number
+  noOfShares: number
+  lotSize: number
+  listingDate: string
+  listingPrice: number
+  listingGainsInRupees: number
+  timelineDetails: {
+    title: string
+    date: string
+    status: keyof typeof IPOStatus
+  }[]
+}[] = [
   {
     id: 1,
     name: "Zomato",
-    registeredName: "Zomato Limited",
     logo: "/zomato.png",
+    description: "lorem ipsum",
+    registeredName: "Zomato Limited",
     issueDateRange: {
       from: "2021-07-14",
       to: "2021-07-16",
@@ -64,9 +98,9 @@ const IPOS = [
   {
     id: 2,
     name: "Paytm",
-    registeredName: "Zomato Limited",
+    registeredName: "Paytm Limited",
     logo: "/zomato.png",
-
+    description: "lorem ipsum",
     issueDateRange: {
       from: "2021-11-08",
       to: "2021-11-10",
@@ -94,35 +128,36 @@ const IPOS = [
       {
         title: "Bidding ends",
         date: "2021-11-10",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Allotment Finalization",
         date: "2021-11-15",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Refund initiation",
         date: "2021-11-16",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Demat transfer",
         date: "2021-11-17",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Listing date",
         date: "2021-11-18",
-        status: "COMPLETED",
+        status: "PENDING",
       },
     ],
   },
   {
     id: 3,
     name: "Nykaa",
-    registeredName: "Zomato Limited",
     logo: "/zomato.png",
+    registeredName: "Nykaa Limited",
+    description: "lorem ipsum",
 
     issueDateRange: {
       from: "2021-10-28",
@@ -178,8 +213,9 @@ const IPOS = [
   {
     id: 4,
     name: "SBI Cards",
-    registeredName: "Zomato Limited",
+    registeredName: "SBI Limited",
     logo: "/zomato.png",
+    description: "lorem ipsum",
 
     issueDateRange: {
       from: "2020-03-02",
@@ -203,40 +239,41 @@ const IPOS = [
       {
         title: "Bidding starts",
         date: "2020-03-02",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Bidding ends",
         date: "2020-03-05",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Allotment Finalization",
         date: "2020-03-10",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Refund initiation",
         date: "2020-03-11",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Demat transfer",
         date: "2020-03-12",
-        status: "COMPLETED",
+        status: "PENDING",
       },
       {
         title: "Listing date",
         date: "2020-03-16",
-        status: "COMPLETED",
+        status: "PENDING",
       },
     ],
   },
   {
     id: 5,
     name: "LIC",
-    registeredName: "Zomato Limited",
+    registeredName: "LIC Limited",
     logo: "/zomato.png",
+    description: "lorem ipsum",
 
     issueDateRange: {
       from: "2022-05-04",
@@ -285,13 +322,15 @@ const IPOS = [
       {
         title: "Listing date",
         date: "2022-05-17",
-        status: "COMPLETED",
+        status: "PENDING",
       },
     ],
   },
 ]
 
 export default function Home() {
+  const { push } = useRouter()
+
   return (
     <table>
       <thead>
@@ -304,7 +343,7 @@ export default function Home() {
       </thead>
       <tbody>
         {IPOS.map((ipo) => (
-          <tr key={ipo.id}>
+          <tr onClick={() => push(`/company/${ipo.id} `)} key={ipo.id}>
             <td className="flex">
               <Image src={ipo.logo} width={50} height={50} alt={""} />
               <div>
