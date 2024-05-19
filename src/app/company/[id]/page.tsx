@@ -2,12 +2,12 @@
 
 import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
-import React, { ReactNode } from "react"
-import { IPOS, IPOStatus } from "../page"
+import React from "react"
 import clsx from "clsx"
+import { IPOS, STATE_HANDLER } from "@/lib/constants"
 
 const Index = ({}) => {
-  const { back } = useRouter()
+  const { back, push } = useRouter()
   const {
     id,
   }: {
@@ -17,50 +17,54 @@ const Index = ({}) => {
   const IPO = IPOS.find((ipo) => ipo.id === Number(id))
 
   return (
-    <div>
-      <h1>IPO Details</h1>
-
-      <div className="flex justify-between">
-        <div className="flex">
-          <div
-            onClick={() => back()}
-            className="md:flex hidden p-3 rounded-md border items-center justify-center"
-          >
-            <Image
-              className="h-fit"
-              src="/back.png"
-              alt="back"
-              width={30}
-              height={30}
-            />
-          </div>
-
-          <Image
-            className="h-fit"
-            src={IPO?.logo!}
-            alt="Zomato"
-            width={50}
-            height={50}
-          />
-          <div>
-            <h1>{IPO?.name}</h1>
-            <p>{IPO?.registeredName}</p>
-          </div>
-        </div>
-
-        <div className="hidden md:flex">
-          <Image src="/pdf.png" alt="pdf" width={50} height={50} />
-          <button>Apply now</button>
-        </div>
-      </div>
-
-      <section className="md:border">
+    <div className="m-4 md:m-10 space-y-8">
+      <section className="space-y-4">
         <h1>IPO Details</h1>
-        <div className="border grid grid-cols-2 md:grid-cols-4">
+        <div className="flex items-center  justify-between">
+          <div className="flex gap-2 items-center">
+            <div
+              onClick={() => push("/company")}
+              className="flex items-center justify-center w-10"
+            >
+              <Image
+                src="/back.png"
+                alt="back"
+                className="h-fit"
+                width={20}
+                height={20}
+                onClick={back}
+              />
+            </div>
+
+            <Image
+              className="h-fit rounded-full"
+              src={IPO?.logo!}
+              alt="Zomato"
+              width={50}
+              height={50}
+            />
+            <div>
+              <h1>{IPO?.name}</h1>
+              <p>{IPO?.registeredName}</p>
+            </div>
+          </div>
+
+          <div className="hidden md:flex md:gap-4">
+            <Image src="/pdf.png" alt="pdf" width={60} height={60} />
+            <button className="bg-[#14153D] px-8 rounded-xl text-white">
+              Apply now
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section className="md:border space-y-4 p-4 rounded-xl">
+        <h1>IPO Details</h1>
+        <div className="border grid p-4 rounded-xl gap-4 grid-cols-2 md:grid-cols-4">
           <div>
             <h2>Issue Size</h2>
             <p>
-              {IPO?.issueSizeRangeInCrores.from} -{" "}
+              ₹{IPO?.issueSizeRangeInCrores.from} - ₹
               {IPO?.issueSizeRangeInCrores.to} crores
             </p>
           </div>
@@ -68,13 +72,13 @@ const Index = ({}) => {
           <div>
             <h2>Price Range</h2>
             <p>
-              {IPO?.priceRange.from} - {IPO?.priceRange.to}
+              ₹{IPO?.priceRange.from} - ₹{IPO?.priceRange.to}
             </p>
           </div>
 
           <div>
             <h2>Minimum Amount</h2>
-            <p>{IPO?.minimumInvestmentInRupees}</p>
+            <p>₹{IPO?.minimumInvestmentInRupees}</p>
           </div>
 
           <div>
@@ -91,11 +95,11 @@ const Index = ({}) => {
         </div>
       </section>
 
-      <section className="md:border">
+      <section className="md:border space-y-4 p-4 rounded-xl">
         <h1>IPO Timeline</h1>
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:grid md:grid-cols-6">
           {IPO?.timelineDetails.map((timeline) => (
-            <div key={timeline.title} className="flex md:flex-col">
+            <div key={timeline.title} className="flex gap-4 md:flex-col">
               <div className="flex flex-col md:flex-row items-center">
                 <div
                   className={clsx(
@@ -120,7 +124,7 @@ const Index = ({}) => {
                 />
               </div>
 
-              <div>
+              <div className="pb-4">
                 <h2>{timeline.title}</h2>
                 <p>{timeline.date}</p>
               </div>
@@ -129,29 +133,12 @@ const Index = ({}) => {
         </div>
       </section>
 
-      <section className="md:border">
+      <section className="md:border space-y-4 p-4 rounded-xl">
         <h1>{IPO?.registeredName}</h1>
         <p>{IPO?.description}</p>
       </section>
     </div>
   )
-}
-
-const STATE_HANDLER: {
-  [key in IPOStatus]: {
-    svgBackgroundStyle?: string
-    lineBackgroundStyle?: string
-  }
-} = {
-  COMPLETED: {
-    lineBackgroundStyle: "bg-gray-800",
-    svgBackgroundStyle: "bg-green-500",
-  },
-
-  PENDING: {
-    lineBackgroundStyle: "bg-gray-200",
-    svgBackgroundStyle: "bg-gray-300",
-  },
 }
 
 export default Index
