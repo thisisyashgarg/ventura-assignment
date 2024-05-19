@@ -6,7 +6,7 @@ import React, { ReactNode } from "react"
 import { IPOS, IPOStatus } from "../page"
 import clsx from "clsx"
 
-const page = ({}) => {
+const Index = ({}) => {
   const { back } = useRouter()
   const {
     id,
@@ -95,7 +95,7 @@ const page = ({}) => {
         <h1>IPO Timeline</h1>
         <div className="flex flex-col md:flex-row">
           {IPO?.timelineDetails.map((timeline) => (
-            <div className="flex md:flex-col">
+            <div key={timeline.title} className="flex md:flex-col">
               <div className="flex flex-col md:flex-row items-center">
                 <div
                   className={clsx(
@@ -154,4 +154,4 @@ const STATE_HANDLER: {
   },
 }
 
-export default page
+export default Index
