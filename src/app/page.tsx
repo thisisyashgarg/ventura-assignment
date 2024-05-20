@@ -16,7 +16,7 @@ export default function Home() {
     <>
       {/* For desktop */}
 
-      <div className="m-10">
+      <div className="m-10 hidden md:block">
         <table className="w-full border-2">
           <thead className="bg-gray-50">
             <tr>
