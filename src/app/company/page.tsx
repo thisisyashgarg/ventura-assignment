@@ -3,6 +3,8 @@
 import { IPOS } from "@/lib/constants"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import dayjs from "dayjs"
+import { convertDate } from "@/lib/utils"
 
 export default function Home() {
   const { push } = useRouter()
@@ -12,19 +14,19 @@ export default function Home() {
       {/* For desktop */}
 
       <div className="m-10">
-        <table className="w-full ">
-          <thead className="bg-gray-200">
+        <table className="w-full border-2 rounded-t-lg">
+          <thead className="bg-gray-50">
             <tr>
-              <th className="p-3" scope="col">
+              <th className="p-3 text-sm text-gray-500 font-light">
                 Company / Issue Date{" "}
               </th>
-              <th className="p-3" scope="col">
+              <th className="p-3 text-sm text-gray-500 font-light">
                 Issue Size
               </th>
-              <th className="p-3" scope="col">
+              <th className="p-3 text-sm text-gray-500 font-light">
                 Price Range
               </th>
-              <th className="p-3" scope="col">
+              <th className="p-3 text-sm text-gray-500 font-light">
                 Minimum Invest/Qty
               </th>
             </tr>
@@ -45,21 +47,24 @@ export default function Home() {
                     alt={""}
                   />
                   <div>
-                    <h2>{ipo.name}</h2>
-                    <p>
-                      {ipo.issueDateRange.from} - {ipo.issueDateRange.to}
+                    <h2 className="font-semibold text-blue-900 uppercase">
+                      {ipo.name}
+                    </h2>
+                    <p className="text-sm text-gray-500">
+                      {convertDate(ipo.issueDateRange.from)} -{" "}
+                      {convertDate(ipo.issueDateRange.to)}
                     </p>
                   </div>
                 </td>
-                <td className="p-3 text-center">
+                <td className="p-3 text-center font-semibold text-blue-900">
                   ₹{ipo.issueSizeRangeInCrores.to} Crores
                 </td>
-                <td className="p-3 text-center">
+                <td className="p-3 text-center font-semibold text-blue-900">
                   ₹{ipo.priceRange.from} - ₹{ipo.priceRange.to}
                 </td>
-                <td className="p-3 text-center">
+                <td className="p-3 text-center font-semibold text-blue-900">
                   <h2>₹{ipo.minimumInvestmentInRupees}</h2>
-                  <p>
+                  <p className="text-sm text-gray-500 font-light">
                     {ipo.noOfShares} shares/{ipo.lotSize} lots
                   </p>
                 </td>

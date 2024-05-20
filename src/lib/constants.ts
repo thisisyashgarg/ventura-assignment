@@ -5,7 +5,8 @@ export const IPOS: IPO[] = [
     id: 1,
     name: "Zomato",
     logo: "/zomato.png",
-    description: "lorem ipsum",
+    description:
+      "bsahcjha dsjc asjd cjha sdj cjas djbc ajsd cj asdjc jas dcj asjd cja sdjc jasd cjh asdjh cjas djc asjd cj asdjh cjas dcjb ajsd cj asdj cjas djc qjswd acj aj sdacj ajsd jc sajh",
     registeredName: "Zomato Limited",
     issueDateRange: {
       from: "2021-07-14",
@@ -82,7 +83,7 @@ export const IPOS: IPO[] = [
     lotSize: 6,
     listingDate: "2021-11-18",
     listingPrice: 1564,
-    listingGainsInRupees: -486,
+    listingGainsInRupees: 486,
     timelineDetails: [
       {
         title: "Bidding starts",
