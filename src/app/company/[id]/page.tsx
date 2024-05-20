@@ -7,6 +7,7 @@ import { IPOS } from "@/lib/constants"
 import { IPOStatus, IPOTimeline } from "@/lib/types"
 import { clsx } from "clsx"
 import { convertDate } from "@/lib/utils"
+import Error from "@/app/error"
 
 const Index = ({}) => {
   const { back, push } = useRouter()
@@ -18,16 +19,16 @@ const Index = ({}) => {
 
   const IPO = IPOS.find((ipo) => ipo.id === Number(id))
 
+  if (!IPO || !id)
+    return <Error error={"IPO not found"} reset={() => push("/")} />
+
   return (
     <div className="m-4 md:m-10 space-y-8">
-      <div className="flex gap-2 text-gray-500">
-        <p
-          className="cursor-pointer text-sm font-light"
-          onClick={() => push("/company")}
-        >
+      <div className="flex items-center gap-2 text-gray-500 font-light">
+        <p className="cursor-pointer text-sm " onClick={() => push("/")}>
           Home
         </p>{" "}
-        &gt; <p className="text-sm  font-light"> {IPO?.name}</p>
+        &gt; <p className="text-sm "> {IPO?.name}</p>
       </div>
 
       <section className="space-y-4">
@@ -35,7 +36,7 @@ const Index = ({}) => {
         <div className="flex items-center  justify-between">
           <div className="flex gap-3 items-center">
             <div
-              onClick={() => push("/company")}
+              onClick={() => push("/")}
               className="flex items-center justify-center w-10"
             >
               <Image

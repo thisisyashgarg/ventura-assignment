@@ -199,7 +199,7 @@ export const IPOS: IPO[] = [
     lotSize: 19,
     listingDate: "2020-03-16",
     listingPrice: 658,
-    listingGainsInRupees: -97,
+    listingGainsInRupees: 97,
     timelineDetails: [
       {
         title: "Bidding starts",
@@ -257,7 +257,7 @@ export const IPOS: IPO[] = [
     lotSize: 15,
     listingDate: "2022-05-17",
     listingPrice: 867,
-    listingGainsInRupees: -82,
+    listingGainsInRupees: 82,
     timelineDetails: [
       {
         title: "Bidding starts",
